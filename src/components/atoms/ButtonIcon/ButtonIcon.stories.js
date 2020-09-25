@@ -36,5 +36,3 @@ export const logout = () => <ButtonIcon icon={logoutIcon} active={boolean('activ
 export const pen = () => <ButtonIcon icon={penIcon} />;
 export const plus = () => <ButtonIcon icon={plusIcon} />;
 export const twitter = () => <ButtonIcon icon={twitterIcon} />;
-
-// export const Primary   = () => <ButtonIcon icon = {Pen}/>
