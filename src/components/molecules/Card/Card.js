@@ -1,12 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
+import LinkIcon from 'assets/icons/link.svg';
+
+// const CARD_TYPE = {
+//   note: 'NOTE',
+//   twitter: 'TWITTER',
+//   article: 'ARTICLE',
+// };
 
 const StyledWrapper = styled.div`
   min-height: 385px;
-  width: 300px;
+  width: 350px;
   box-shadow: 0 10px 30px -10px hsla(0, 0%, 0%, 0.1);
   border-radius: 10px;
   overflow: hidden;
@@ -15,9 +23,14 @@ const StyledWrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
-  background-color: ${({ yellow, theme }) => (yellow ? theme.primary : 'white')};
+  background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};
   width: 100%;
   padding: 10px 30px;
+  position: relative;
+  height: 75px;
+  :first-of-type {
+    z-index: 2000;
+  }
   ${({ flex }) =>
     flex &&
     css`
@@ -35,12 +48,38 @@ const DateInfo = styled(Paragraph)`
 const StyledHeading = styled(Heading)`
   margin: 5px 0 0;
 `;
+const StyledAvatar = styled.img`
+  width: 76px;
+  height: 76px;
+  border: 5px solid ${({ theme }) => theme.twitter};
+  position: absolute;
+  right: 15px;
+  top: 40px;
+  border-radius: 50px;
+  /* z-index:1000; */
+  /* background-image: url('https://unavatar.now.sh/twitter/edent'); */
+`;
 
-const Card = () => (
+const StyledLinkButton = styled.a`
+  display: block;
+  width: 47px;
+  height: 47px;
+  border-radius: 50px;
+  background: white url(${LinkIcon}) no-repeat;
+  background-size: 50%;
+  background-position: 50%;
+  position: absolute;
+  right: 15px;
+  top: 30px;
+`;
+
+const Card = ({ cardType }) => (
   <StyledWrapper>
-    <InnerWrapper yellow>
+    <InnerWrapper activeColor={cardType}>
       <StyledHeading>My example Card</StyledHeading>
       <DateInfo>3 days</DateInfo>
+      {cardType === 'twitter' && <StyledAvatar src="https://unavatar.now.sh/twitter/edent" />}
+      {cardType === 'article' && <StyledLinkButton />}
     </InnerWrapper>
     <InnerWrapper flex>
       <Paragraph>
@@ -53,3 +92,11 @@ const Card = () => (
   </StyledWrapper>
 );
 export default Card;
+
+Card.propTypes = {
+  cardType: PropTypes.oneOf(['note', 'twitter', 'article']),
+};
+
+Card.defaultProps = {
+  cardType: 'note',
+};

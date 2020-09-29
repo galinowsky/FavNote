@@ -16,7 +16,7 @@ const YellowBackground = styled.div`
   align-items: center;
   width: 150px;
   height: 150px;
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.note};
 `;
 
 export default {
