@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './Card';
 
 export default {
-  title: 'Example/Card',
+  title: 'Molecules/Card',
 };
 
 export const primar = () => <Card />;

@@ -4,7 +4,7 @@ import Button from 'components/atoms/Button/Button';
 import { withKnobs, select } from '@storybook/addon-knobs';
 
 export default {
-  title: 'Example/Button', // podoajemy ścieżke
+  title: 'Atoms/Button', // podoajemy ścieżke
   component: Button,
   decorators: [withKnobs],
   args: {

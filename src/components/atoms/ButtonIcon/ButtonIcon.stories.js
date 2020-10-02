@@ -20,19 +20,19 @@ const YellowBackground = styled.div`
 `;
 
 export default {
-  title: 'Example/ButtonIcon',
+  title: 'Atoms/ButtonIcon',
   component: ButtonIcon,
   decorators: [
     Story => (
       <YellowBackground>
-        <Story active={boolean('dupa?', false)} />
+        <Story active={boolean('active?', false)} />
       </YellowBackground>
     ),
   ],
 };
 
 export const bulb = () => <ButtonIcon icon={bulbIcon} />;
-export const logout = () => <ButtonIcon icon={logoutIcon} active={boolean('active?', false)} />;
+export const logout = () => <ButtonIcon icon={logoutIcon} />;
 export const pen = () => <ButtonIcon icon={penIcon} />;
 export const plus = () => <ButtonIcon icon={plusIcon} />;
 export const twitter = () => <ButtonIcon icon={twitterIcon} />;
