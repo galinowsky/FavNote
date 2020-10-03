@@ -1,18 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
 import bulbIcon from 'assets/icons/bulb.svg';
 import logoutIcon from 'assets/icons/logout.svg';
 import penIcon from 'assets/icons/pen.svg';
-// import plusIcon from 'assets/icons/plus.svg';
 import twitterIcon from 'assets/icons/twitter.svg';
 import logo from 'assets/icons/logo.svg';
 
 const SidebarWrapper = styled.div`
   background-color: ${({ activeColor, theme }) => theme[activeColor]};
-  position: absolute;
+  position: fixed;
   left: 0;
   height: 100vh;
   width: 100px;
@@ -29,25 +28,26 @@ const SidebarMode = styled.div`
   align-items: center;
 `;
 
-const Sidebar = ({ SiderbarType }) => (
-  <SidebarWrapper activeColor={SiderbarType}>
+const Sidebar = ({ pageType }) => (
+  <SidebarWrapper activeColor={pageType}>
     <ButtonIcon icon={logo} />
     <SidebarMode>
-      <ButtonIcon as={Link} to="/" icon={penIcon} />
-      <ButtonIcon as={Link} to="/twitters" icon={twitterIcon} />
-      <ButtonIcon as={Link} to="/articles" icon={bulbIcon} />
+      <ButtonIcon as={NavLink} to="/" exact icon={penIcon} activeclass="active" />
+      <ButtonIcon as={NavLink} to="/twitters" icon={twitterIcon} activeclass="active" />
+
+      <ButtonIcon as={NavLink} to="/articles" icon={bulbIcon} activeclass="active" />
     </SidebarMode>
 
-    <ButtonIcon icon={logoutIcon} />
+    <ButtonIcon as={NavLink} to="/login" icon={logoutIcon} />
   </SidebarWrapper>
 );
 
 export default Sidebar;
 
 Sidebar.propTypes = {
-  SiderbarType: PropTypes.oneOf(['note', 'twitter', 'article']),
+  pageType: PropTypes.oneOf(['note', 'twitter', 'article']),
 };
 
 Sidebar.defaultProps = {
-  SiderbarType: 'note',
+  pageType: 'note',
 };
