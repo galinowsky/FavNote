@@ -71,23 +71,19 @@ const StyledLinkButton = styled.a`
   background-position: 50%;
   position: absolute;
   right: 15px;
-  top: 30px;
+  top: 15px;
 `;
 
-const Card = ({ cardType }) => (
+const Card = ({ cardType, title, created, articleUrl, content, twitterName }) => (
   <StyledWrapper>
     <InnerWrapper activeColor={cardType}>
-      <StyledHeading>My example Card</StyledHeading>
-      <DateInfo>3 days</DateInfo>
-      {cardType === 'twitter' && <StyledAvatar src="https://unavatar.now.sh/twitter/edent" />}
-      {cardType === 'article' && <StyledLinkButton />}
+      <StyledHeading>{title}</StyledHeading>
+      <DateInfo>{created}</DateInfo>
+      {cardType === 'twitter' && <StyledAvatar src={`http://twivatar.glitch.me/${twitterName}`} />}
+      {cardType === 'article' && <StyledLinkButton href={articleUrl} />}
     </InnerWrapper>
     <InnerWrapper flex>
-      <Paragraph>
-        Excepteur laboris non quis enim non minim velit nulla incididunt duis. Aute amet officia
-        deserunt exercitation et magna ipsum ea ea cillum anim dolor. Duis ad Lorem sit laboris
-        officia culpa ex minim anim Lorem do qui fugiat nostrud.
-      </Paragraph>
+      <Paragraph>{content}</Paragraph>
       <Button secondary>remove</Button>
     </InnerWrapper>
   </StyledWrapper>
@@ -96,8 +92,15 @@ export default Card;
 
 Card.propTypes = {
   cardType: PropTypes.oneOf(['note', 'twitter', 'article']),
+  title: PropTypes.string.isRequired,
+  created: PropTypes.string.isRequired,
+  twitterName: PropTypes.string,
+  articleUrl: PropTypes.string,
+  content: PropTypes.string.isRequired,
 };
 
 Card.defaultProps = {
   cardType: 'note',
+  twitterName: null,
+  articleUrl: null,
 };
