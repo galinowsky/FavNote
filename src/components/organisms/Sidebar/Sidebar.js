@@ -20,6 +20,7 @@ const SidebarWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 15px 0 25px;
+  z-index: 3000;
 `;
 const SidebarMode = styled.div`
   display: flex;

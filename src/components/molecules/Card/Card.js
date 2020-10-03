@@ -20,6 +20,7 @@ const StyledWrapper = styled.div`
   overflow: hidden;
   display: grid;
   grid-template-rows: 0.25fr 1fr;
+  /* margin:25px 50px 35px; */
 `;
 
 const InnerWrapper = styled.div`
