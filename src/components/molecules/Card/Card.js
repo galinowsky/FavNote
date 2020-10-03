@@ -48,6 +48,7 @@ const DateInfo = styled(Paragraph)`
 `;
 const StyledHeading = styled(Heading)`
   margin: 5px 0 0;
+  padding-right: 25px;
 `;
 const StyledAvatar = styled.img`
   width: 76px;

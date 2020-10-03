@@ -33,7 +33,7 @@ const Sidebar = ({ pageType }) => (
   <SidebarWrapper activeColor={pageType}>
     <ButtonIcon icon={logo} />
     <SidebarMode>
-      <ButtonIcon as={NavLink} to="/" exact icon={penIcon} activeclass="active" />
+      <ButtonIcon as={NavLink} to="/notes" exact icon={penIcon} activeclass="active" />
       <ButtonIcon as={NavLink} to="/twitters" icon={twitterIcon} activeclass="active" />
 
       <ButtonIcon as={NavLink} to="/articles" icon={bulbIcon} activeclass="active" />
