@@ -1,7 +1,8 @@
 import React from 'react';
 // import { ThemeConsumer } from 'styled-components';
-import UserPageTemplate from 'templates/UserPageTemplate';
+
 import Card from 'components/molecules/Card/Card';
+import GridTemplate from '../templates/GridTemplate';
 
 const articles = [
   {
@@ -35,17 +36,17 @@ const articles = [
 ];
 
 const Articles = () => (
-  <UserPageTemplate pageType="article">
+  <GridTemplate pageType="articles">
     {articles.map(elem => (
       <Card
-        cardType="article"
+        cardType="articles"
         title={elem.title}
         content={elem.content}
         articleUrl={elem.articleUrl}
         created={elem.cretaed}
       />
     ))}
-  </UserPageTemplate>
+  </GridTemplate>
 );
 
 export default Articles;
