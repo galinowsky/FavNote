@@ -6,5 +6,5 @@ export default {
 };
 
 export const primar = () => <Card />;
-export const second = () => <Card cardType="twitter" />;
-export const third = () => <Card cardType="article" />;
+export const second = () => <Card cardType="twitters" />;
+export const third = () => <Card cardType="articles" />;
