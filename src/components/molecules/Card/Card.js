@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import LinkIcon from 'assets/icons/link.svg';
+import { connect } from 'react-redux';
+import { removeItem } from 'actions';
 
 const StyledWrapper = styled.div`
   min-height: 385px;
@@ -78,10 +80,22 @@ class Card extends Component {
   handleCardClick = () => this.setState({ redirect: true });
 
   render() {
-    const { cardType, title, created, articleUrl, content, twitterName, id } = this.props;
-    if(this.state.redirect) {
-      return <Redirect to={`${cardType}/${id}`} />
+    const {
+      cardType,
+      title,
+      created,
+      articleUrl,
+      content,
+      twitterName,
+      id,
+      removeItem,
+    } = this.props;
+
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to={`${cardType}/${id}`} />;
     }
+    // {console.log(this.state)}
     return (
       <StyledWrapper onClick={this.handleCardClick}>
         <InnerWrapper activeColor={cardType}>
@@ -95,22 +109,28 @@ class Card extends Component {
         </InnerWrapper>
         <InnerWrapper flex>
           <Paragraph>{content}</Paragraph>
-          <Button secondary>remove</Button>
+          <Button secondary onClick={() => removeItem(cardType, id)}>
+            remove
+          </Button>
         </InnerWrapper>
       </StyledWrapper>
     );
   }
 }
-export default Card;
+const mapDispatchToProps = dispatch => ({
+  myfunction: (itemType, id) => dispatch(removeItem(itemType, id)),
+});
 
-Card.propTypes = {
-  cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
-  title: PropTypes.string.isRequired,
-  created: PropTypes.string.isRequired,
-  twitterName: PropTypes.string,
-  articleUrl: PropTypes.string,
-  content: PropTypes.string.isRequired,
-};
+export default connect(null, mapDispatchToProps)(Card);
+
+// Card.propTypes = {
+//   cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+//   title: PropTypes.string.isRequired,
+//   created: PropTypes.string.isRequired,
+//   twitterName: PropTypes.string,
+//   articleUrl: PropTypes.string,
+//   content: PropTypes.string.isRequired,
+// };
 
 Card.defaultProps = {
   cardType: 'notes',
