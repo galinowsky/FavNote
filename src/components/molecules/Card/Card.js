@@ -90,7 +90,6 @@ class Card extends Component {
       id,
       removeItem,
     } = this.props;
-
     const { redirect } = this.state;
     if (redirect) {
       return <Redirect to={`${cardType}/${id}`} />;
@@ -118,7 +117,7 @@ class Card extends Component {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  myfunction: (itemType, id) => dispatch(removeItem(itemType, id)),
+  removeItem: (itemType, id) => dispatch(removeItem(itemType, id)),
 });
 
 export default connect(null, mapDispatchToProps)(Card);
