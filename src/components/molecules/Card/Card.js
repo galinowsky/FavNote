@@ -7,7 +7,7 @@ import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import LinkIcon from 'assets/icons/link.svg';
 import { connect } from 'react-redux';
-import { removeItem } from 'actions';
+import { removeItem as removeItemAction } from 'actions';
 
 const StyledWrapper = styled.div`
   min-height: 385px;
@@ -116,20 +116,24 @@ class Card extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => ({
-  removeItem: (itemType, id) => dispatch(removeItem(itemType, id)),
-});
+const mapDispatchToProps = (dispatch) => {
+  return{
+
+  removeItem: (itemType, id) => dispatch(removeItemAction(itemType, id)),
+}};
 
 export default connect(null, mapDispatchToProps)(Card);
 
-// Card.propTypes = {
-//   cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
-//   title: PropTypes.string.isRequired,
-//   created: PropTypes.string.isRequired,
-//   twitterName: PropTypes.string,
-//   articleUrl: PropTypes.string,
-//   content: PropTypes.string.isRequired,
-// };
+Card.propTypes = {
+  cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  title: PropTypes.string.isRequired,
+  created: PropTypes.string.isRequired,
+  twitterName: PropTypes.string,
+  articleUrl: PropTypes.string,
+  content: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  removeItem: PropTypes.func.isRequired,
+};
 
 Card.defaultProps = {
   cardType: 'notes',

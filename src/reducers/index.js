@@ -110,6 +110,8 @@ const rootReducer = (state = initialState, action) => {
             !== action.payload.id)
         ]
       }
+      default:
+        return state;
   }
 
 };
