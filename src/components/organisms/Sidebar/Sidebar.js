@@ -8,6 +8,7 @@ import logoutIcon from 'assets/icons/logout.svg';
 import penIcon from 'assets/icons/pen.svg';
 import twitterIcon from 'assets/icons/twitter.svg';
 import logo from 'assets/icons/logo.svg';
+import withContext from 'hoc/withContext'
 
 const SidebarWrapper = styled.div`
   background-color: ${({ activeColor, theme }) => theme[activeColor]};
@@ -29,8 +30,8 @@ const SidebarMode = styled.div`
   align-items: center;
 `;
 
-const Sidebar = ({ pageType }) => (
-  <SidebarWrapper activeColor={pageType}>
+const Sidebar = ({ pageContext }) => (
+  <SidebarWrapper activeColor={pageContext}>
     <ButtonIcon icon={logo} />
     <SidebarMode>
       <ButtonIcon as={NavLink} to="/notes"  icon={penIcon} activeclass="active" />
@@ -43,12 +44,12 @@ const Sidebar = ({ pageType }) => (
   </SidebarWrapper>
 );
 
-export default Sidebar;
+export default withContext(Sidebar);
 
 Sidebar.propTypes = {
-  pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
 };
 
 Sidebar.defaultProps = {
-  pageType: 'notes',
+  pageContext: 'notes',
 };

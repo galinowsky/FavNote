@@ -22,8 +22,8 @@ const Articles = ({articles}) => (
     ))}
   </GridTemplate>
 );
-const mapStateeToProps = ({articles}) =>({articles})
-export default connect(mapStateeToProps)(Articles);
+const mapStateToProps = ({articles}) =>({articles})
+export default connect(mapStateToProps)(Articles);
 
 Articles.propTypes = {
   articles: PropTypes.arrayOf(

@@ -4,6 +4,7 @@ import GlobalStyle from 'theme/GlobalStyle';
 import { withRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme } from 'theme/mainTheme';
+import PageContext from 'context';
 
 class MainTemplate extends Component {
   state = {
@@ -22,22 +23,24 @@ class MainTemplate extends Component {
     const pageTypes = ['twitters', 'articles', 'notes'];
     const { pathname } = this.props.location;
     const [currentPage] = pageTypes.filter(page => pathname.includes(page));
-  
+
     if (prevState.pageType !== currentPage) {
       this.setState({
         pageType: currentPage,
       });
-      console.log(this.state)
+      console.log(this.state);
     }
   };
 
   render() {
     const { children } = this.props;
-
+    const { pageType } = this.state;
     return (
       <div>
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <PageContext.Provider value={pageType}>
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </PageContext.Provider>
       </div>
     );
   }
