@@ -41,10 +41,7 @@ const StyledHeading = styled(Heading)`
     text-transform: uppercase;
   }
 `;
-const ViewWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 2fr ${() => ``};
-`;
+
 const StyledParagraph = styled(Paragraph)`
   margin: 0;
   font-weight: ${({ theme }) => theme.bold};
@@ -57,23 +54,31 @@ const StyledButtonIcon = styled(ButtonIcon)`
   position: fixed;
   bottom: 35px;
   right: 35px;
+  z-index:9999;
 `;
 class GridTemplate extends Component{
 
   state={
-    NewItemBar: false,
+    isItemBarVisible: false,
   }
 
-  handleAddNoteClick = () => {
-    console.log(this.state.NewItemBar)
-    this.setState({
-      NewItemBar: !this.state.NewItemBar,
-    })
+  handleNewItemBarToggle = () => {
+    this.setState(prevState => ({
+    isItemBarVisible: !prevState.isItemBarVisible
+    }));
   };
+
 
   render(){
     const {children, pageContext} = this.props
-     const { NewItemBar } = this.state
+     const { isItemBarVisible } = this.state
+
+     const ViewWrapper = styled.div`
+     /* padding-right:25px;
+     display: grid;
+     grid-template-columns: 2fr ${(isItemBarVisible &&  `400px`)}; */
+   `;
+
     return(
       <UserPageTemplate>
       <StyledWrapper>
@@ -87,10 +92,11 @@ class GridTemplate extends Component{
         <ViewWrapper>
           <StyledGrid>{children}</StyledGrid>
            {/* <NewItemBar pageContext = {pageContext}/> */}
+           {(isItemBarVisible && <NewItemBar pageContext = {pageContext}/>)}
           <StyledButtonIcon
             icon={plusIcon}
             color={pageContext}
-            onClick={()=> this.handleAddNoteClick()}
+            onClick={()=> this.handleNewItemBarToggle()}
             />
         </ViewWrapper>
       </StyledWrapper>
