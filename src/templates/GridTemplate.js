@@ -87,11 +87,11 @@ class GridTemplate extends Component{
         <ViewWrapper>
           <StyledGrid>{children}</StyledGrid>
            {/* <NewItemBar pageContext = {pageContext}/> */}
-          {/* <StyledButtonIcon
+          <StyledButtonIcon
             icon={plusIcon}
             color={pageContext}
             onClick={()=> this.handleAddNoteClick()}
-            /> */}
+            />
         </ViewWrapper>
       </StyledWrapper>
     </UserPageTemplate>
