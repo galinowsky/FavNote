@@ -9,8 +9,8 @@ import withContext from 'hoc/withContext';
 import plusIcon from 'assets/icons/plus.svg';
 
 const StyledWrapper = styled.div`
-  height: 95vh;
-  width: 500px;
+  height: 70vh;
+  width: 390px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
