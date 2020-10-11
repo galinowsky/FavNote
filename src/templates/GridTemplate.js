@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import UserPageTemplate from 'templates/UserPageTemplate';
@@ -54,55 +54,52 @@ const StyledButtonIcon = styled(ButtonIcon)`
   position: fixed;
   bottom: 35px;
   right: 35px;
-  z-index:9999;
+  z-index: 9999;
 `;
-class GridTemplate extends Component{
-
-  state={
+class GridTemplate extends Component {
+  state = {
     isItemBarVisible: false,
-  }
+  };
 
   handleNewItemBarToggle = () => {
     this.setState(prevState => ({
-    isItemBarVisible: !prevState.isItemBarVisible
+      isItemBarVisible: !prevState.isItemBarVisible,
     }));
   };
 
+  render() {
+    const { children, pageContext } = this.props;
+    const { isItemBarVisible } = this.state;
 
-  render(){
-    const {children, pageContext} = this.props
-     const { isItemBarVisible } = this.state
-
-     const ViewWrapper = styled.div`
+    const ViewWrapper = styled.div`
      /* padding-right:25px;
      display: grid;
-     grid-template-columns: 2fr ${(isItemBarVisible &&  `400px`)}; */
+     grid-template-columns: 2fr ${isItemBarVisible && `400px`}; */
    `;
 
-    return(
+    return (
       <UserPageTemplate>
-      <StyledWrapper>
-        <StyledPageHeader>
-          <Input search placeholder="Search" />
-          <StyledHeading big as="h1">
-            {pageContext}
-          </StyledHeading>
-          <StyledParagraph>6 {pageContext}</StyledParagraph>
-        </StyledPageHeader>
-        <ViewWrapper>
-          <StyledGrid>{children}</StyledGrid>
-           {/* <NewItemBar pageContext = {pageContext}/> */}
-           {(isItemBarVisible && <NewItemBar pageContext = {pageContext}/>)}
-          <StyledButtonIcon
-            icon={plusIcon}
-            color={pageContext}
-            onClick={()=> this.handleNewItemBarToggle()}
+        <StyledWrapper>
+          <StyledPageHeader>
+            <Input search placeholder="Search" />
+            <StyledHeading big as="h1">
+              {pageContext}
+            </StyledHeading>
+            <StyledParagraph>6 {pageContext}</StyledParagraph>
+          </StyledPageHeader>
+          <ViewWrapper>
+            <StyledGrid>{children}</StyledGrid>
+            {/* <NewItemBar pageContext = {pageContext}/> */}
+           <NewItemBar pageContext={pageContext} isVisible={isItemBarVisible}/>
+            <StyledButtonIcon
+              icon={plusIcon}
+              color={pageContext}
+              onClick={() => this.handleNewItemBarToggle()}
             />
-        </ViewWrapper>
-      </StyledWrapper>
-    </UserPageTemplate>
-    )
-
+          </ViewWrapper>
+        </StyledWrapper>
+      </UserPageTemplate>
+    );
   }
 }
 // const GridTemplate = ({ children, pageContext }) => (
