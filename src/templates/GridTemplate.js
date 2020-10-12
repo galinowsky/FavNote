@@ -90,7 +90,11 @@ class GridTemplate extends Component {
           <ViewWrapper>
             <StyledGrid>{children}</StyledGrid>
             {/* <NewItemBar pageContext = {pageContext}/> */}
-           <NewItemBar pageContext={pageContext} isVisible={isItemBarVisible}/>
+            <NewItemBar
+              pageContext={pageContext}
+              isVisible={isItemBarVisible}
+              toggleFunction={this.handleNewItemBarToggle}
+            />
             <StyledButtonIcon
               icon={plusIcon}
               color={pageContext}

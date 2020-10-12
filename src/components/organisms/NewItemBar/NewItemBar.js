@@ -6,9 +6,10 @@ import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
 import Button from 'components/atoms/Button/Button';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import withContext from 'hoc/withContext';
-import plusIcon from 'assets/icons/plus.svg';
+// import plusIcon from 'assets/icons/plus.svg';
 import { connect } from 'react-redux';
-import {addItem as addItemAction} from 'actions';
+import { addItem as addItemAction } from 'actions';
+import { Formik, Form } from 'formik';
 
 const StyledWrapper = styled.div`
   z-index: 3999;
@@ -38,48 +39,80 @@ const StyledParagraph = styled(Paragraph)`
 const StyledButton = styled(Button)`
   /* margin-top:15px; */
 `;
-const StyledButtonIcon = styled(ButtonIcon)`
-  position: fixed;
-  bottom: 35px;
-  right: 35px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-size: 30%;
-`;
+
 
 const StyledDescriptionInput = styled(Input)`
-  height: 300px;
+  height: 30vh;
   width: 300px;
   margin: 30px 0px 15px;
   border-radius: 15px;
 `;
-const newItemBar = ({ pageContext, isVisible, addItem }) => {
+const newItemBar = ({ pageContext, isVisible, addItem, toggleFunction }) => {
   // const elements = ['note','twitter','article'];
   return (
     <StyledWrapper isVisible={isVisible} color={pageContext}>
       <StyledHeading>Add new {pageContext}</StyledHeading>
       <StyledParagraph>A note requires title and description</StyledParagraph>
-      <Input placeholder={pageContext === 'twitters' ? 'Account Name' : 'title'}></Input>
-      {pageContext === 'articles' && <Input placeholder="Link"></Input>}
-      {/* {pageContext === 'twitters' && <Input placeholder="Twitter Link"></Input>} */}
+      <Formik
+        initialValues={{ title: '', content: '', articleUrl: '', twitterName: '', created: '' }}
+        onSubmit={(values) => {
+          addItem(pageContext, values);
+          toggleFunction();
+        }}
+      >
+        {({ values, handleChange, handleBlur}) => (
+          <Form>
+            <Input
+              type="text"
+              name="title"
+              placeholder={pageContext === 'twitters' ? 'Account Name' : 'title'}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.title}
+            ></Input>
+            {pageContext === 'twitters' && (
+              <Input
+                type="text"
+                name="twitterName"
+                placeholder="Twitters name eg. Bill Gates "
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.twitterName}
+              ></Input>
+            )}
+            {pageContext === 'articles' && (
+              <Input
+                type="text"
+                name="articleUrl"
+                placeholder="Link"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.articleUrl}
+              ></Input>
+            )}
 
-      <StyledDescriptionInput placeholder="Description" as="textarea"></StyledDescriptionInput>
-      <StyledButton color={pageContext} onClick={() => addItem(pageContext,{
-        title: 'jaja',
-        content: 'jajajajajajajajja'
-      })}>Add note</StyledButton>
-      {/* <StyledButtonIcon icon={plusIcon} color={pageContext}></StyledButtonIcon> */}
+            <StyledDescriptionInput
+              type="textarea"
+              name="content"
+              as="textarea"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.content}
+            ></StyledDescriptionInput>
+            <StyledButton color={pageContext} type="submit">
+              Add note
+            </StyledButton>
+          </Form>
+        )}
+      </Formik>
     </StyledWrapper>
   );
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
-
-    addItem:(itemType, itemContent) => dispatch(addItemAction(itemType, itemContent))
-  }
-
+    addItem: (itemType, itemContent) => dispatch(addItemAction(itemType, itemContent)),
+  };
 };
 
 export default connect(null, mapDispatch)(withContext(newItemBar));
