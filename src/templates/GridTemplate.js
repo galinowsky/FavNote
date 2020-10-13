@@ -11,7 +11,7 @@ import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
 import plusIcon from 'assets/icons/plus.svg';
 
 const StyledWrapper = styled.div`
-  padding: 25px 25px 25px 50px;
+  padding: 25px 25px 25px 150px;
   position: relative;
 `;
 
