@@ -15,11 +15,11 @@ const StyledBackground = styled.div`
   flex-direction: column;
 `;
 const StyledLoginPanel = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 375px;
+  height: 375px;
   background-color: white;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   border-radius: 10px;

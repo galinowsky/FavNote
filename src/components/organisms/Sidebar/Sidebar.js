@@ -8,7 +8,7 @@ import logoutIcon from 'assets/icons/logout.svg';
 import penIcon from 'assets/icons/pen.svg';
 import twitterIcon from 'assets/icons/twitter.svg';
 import logo from 'assets/icons/logo.svg';
-import withContext from 'hoc/withContext'
+import withContext from 'hoc/withContext';
 
 const SidebarWrapper = styled.div`
   background-color: ${({ activeColor, theme }) => theme[activeColor]};
@@ -34,7 +34,7 @@ const Sidebar = ({ pageContext }) => (
   <SidebarWrapper activeColor={pageContext}>
     <ButtonIcon icon={logo} />
     <SidebarMode>
-      <ButtonIcon as={NavLink} to="/notes"  icon={penIcon} activeclass="active" />
+      <ButtonIcon as={NavLink} to="/notes" icon={penIcon} activeclass="active" />
       <ButtonIcon as={NavLink} to="/twitters" icon={twitterIcon} activeclass="active" />
 
       <ButtonIcon as={NavLink} to="/articles" icon={bulbIcon} activeclass="active" />
