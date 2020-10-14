@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Formik, Form, Field } from 'formik';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
 import AuthorizationTemplate from 'templates/AuthorizationTemplate';
 import Input from 'components/atoms/Input/Input';
 import Button from 'components/atoms/Button/Button';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
+import { authenticate as authenticateAction } from 'actions';
+import { connect } from 'react-redux';
 
 const StyledForm = styled(Form)`
   /* padding: 35px 0px; */
@@ -22,6 +24,8 @@ const StyeledButton = styled(Button)`
 
 const StyledParagraph = styled(Paragraph)`
   font-weight: ${({ theme }) => theme.bold};
+  text-decoration: underline;
+  cursor: pointer;
 `;
 const StyledHeading = styled(Heading)`
   margin: 15px;
@@ -41,19 +45,19 @@ class LoginPage extends Component {
 
   render() {
     const { view } = this.state;
+    const { authenticate, userID } = this.props;
     return (
       <AuthorizationTemplate>
         <Formik
           initialValues={{ username: '', password: '' }}
           onSubmit={({ username, password }) => {
-            axios
-              .post('http://localhost:9000/api/user/login', { username, password })
-              .then(() => console.log('succes in logging'))
-              .catch(err => console.log(err));
+            authenticate(username, password);
           }}
         >
           {() => (
             <StyledForm>
+              {userID && <Redirect to="/notes" />}
+
               <StyledHeading>Sign In</StyledHeading>
               <Field as={Input} name="username" type="text" placeholder="login"></Field>
               <Field as={Input} name="password" type="password" placeholder="password"></Field>
@@ -71,4 +75,10 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+const mapState = ({ userID = null }) => ({ userID });
+
+const mapDispatch = dispatch => ({
+  authenticate: (username, password) => dispatch(authenticateAction(username, password)),
+});
+
+export default connect(mapState, mapDispatch)(LoginPage);

@@ -1,3 +1,5 @@
+import { ADD_ITEM, REMOVE_ITEM, AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE } from 'actions';
+
 const initialState = {
   notes: [
     {
@@ -101,29 +103,32 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   // eslint-disable-next-line default-case
-  switch (action.type){
-    case('REMOVE_ITEM'):
+  switch (action.type) {
+    case AUTH_SUCCESS: {
+      // console.log(action)
       return {
         ...state,
-        [action.payload.itemType] : [
-          ...state[action.payload.itemType].filter(item => item.id
-            !== action.payload.id)
-        ]
-      }
-
-      case('ADD_ITEM'):
+        userID: action.payload.data._id,
+      };
+      // console.log(action)
+    }
+    case REMOVE_ITEM:
       return {
         ...state,
-        [action.payload.itemType] :[
-          ...state[action.payload.itemType], action.payload.item
-        ]
+        [action.payload.itemType]: [
+          ...state[action.payload.itemType].filter(item => item.id !== action.payload.id),
+        ],
+      };
 
-      }
+    case ADD_ITEM:
+      return {
+        ...state,
+        [action.payload.itemType]: [...state[action.payload.itemType], action.payload.item],
+      };
 
-      default:
-        return state;
+    default:
+      return state;
   }
-
 };
 
 export default rootReducer;
