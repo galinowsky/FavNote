@@ -18,12 +18,12 @@ render(){
     {notes &&
       notes.map(elem => (
         <Card
-          cardType="notes"
+          cardType={elem.type}
           title={elem.title}
           content={elem.content}
-          created={elem.cretaed}
-          key={elem.id}
-          id={elem.id}
+          // created={elem.cretaed}
+          key={elem._id}
+          id={elem._id}
         />
       ))}
   </GridTemplate>
@@ -46,12 +46,12 @@ export default connect(mapStateToProps, mapDispatch)(Notes);
 Notes.propTypes = {
   notes: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      cardType: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
       key: PropTypes.number,
-      created: PropTypes.string.isRequired,
+      // created: PropTypes.string.isRequired,
     }),
   ),
 };

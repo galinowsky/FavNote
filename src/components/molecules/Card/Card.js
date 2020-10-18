@@ -84,7 +84,7 @@ class Card extends Component {
     const {
       pageContext,
       title,
-      created,
+      // created,
       articleUrl,
       content,
       twitterName,
@@ -100,7 +100,7 @@ class Card extends Component {
       <StyledWrapper onClick={this.handleCardClick}>
         <InnerWrapper activeColor={pageContext}>
           <StyledHeading>{title}</StyledHeading>
-          <DateInfo>{created}</DateInfo>
+          {/* <DateInfo>{created}</DateInfo> */}
           {/* <StyledAvatar src={`http://twivatar.glitch.me/${twitterName}`} /> */}
           {pageContext === 'twitters' && (
             <StyledAvatar src={`http://twivatar.glitch.me/${twitterName}`} />
@@ -128,11 +128,11 @@ export default connect(null, mapDispatchToProps)(withContext(Card));
 Card.propTypes = {
   pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
   title: PropTypes.string.isRequired,
-  created: PropTypes.string.isRequired,
+  // created: PropTypes.string.isRequired,
   twitterName: PropTypes.string,
   articleUrl: PropTypes.string,
   content: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   removeItem: PropTypes.func.isRequired,
 };
 

@@ -39,7 +39,7 @@ export const addItem = (itemType, itemContent) => {
 
 export const authenticate = (username, password) => dispatch => {
   dispatch({ type: AUTH_REQUEST });
-
+  console.log({username, password})
   return axios
     .post('http://localhost:9000/api/user/login', { username, password })
     .then(payload => {
@@ -66,7 +66,7 @@ export const fetchItems = itemType => (dispatch, getState) => {
       },
     })
     .then(({ data }) => {
-      // console.log(data);
+      console.log(data);
       dispatch({
         type: FETCH_SUCCESS,
         payload: {

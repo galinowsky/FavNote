@@ -61,7 +61,7 @@ class LoginPage extends Component {
               <StyledHeading>Sign In</StyledHeading>
               <Field as={Input} name="username" type="text" placeholder="login"></Field>
               <Field as={Input} name="password" type="password" placeholder="password"></Field>
-              <StyeledButton color={({ theme }) => theme.notes} type="submit">
+              <StyeledButton  type="submit">
                 {view === 'login' ? 'Sign In' : 'Register'}
               </StyeledButton>
             </StyledForm>
