@@ -1,37 +1,57 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Card from 'components/molecules/Card/Card';
 import GridTemplate from 'templates/GridTemplate';
+import { fetchItems } from 'actions';
 
-const Notes = ({ notes }) => (
-  <GridTemplate>
-    {notes && notes.map(elem => (
-      <Card
-        cardType="notes"
-        title={elem.title}
-        content={elem.content}
-        created={elem.cretaed}
-        key={elem.id}
-        id={elem.id}
-      />
-    ))}
+class Notes extends Component{
+
+componentDidMount(){
+  this.props.fetchItems('notes')
+}
+
+render(){
+  const {notes} = this.props
+  return(
+    <GridTemplate>
+    {notes &&
+      notes.map(elem => (
+        <Card
+          cardType="notes"
+          title={elem.title}
+          content={elem.content}
+          created={elem.cretaed}
+          key={elem.id}
+          id={elem.id}
+        />
+      ))}
   </GridTemplate>
-);
+  )
+}
+
+}
+
+
+
+
 
 const mapStateToProps = ({ notes }) => ({ notes });
+const mapDispatch = {
+fetchItems
+}
 
-export default connect(mapStateToProps)(Notes);
+export default connect(mapStateToProps, mapDispatch)(Notes);
 
-// Notes.propTypes = {
-//   notes: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       cardType: PropTypes.string.isRequired,
-//       title: PropTypes.string.isRequired,
-//       content: PropTypes.string.isRequired,
-//       key: PropTypes.number,
-//       created: PropTypes.string.isRequired,
-//     }),
-//   ),
-// };
+Notes.propTypes = {
+  notes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      cardType: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      key: PropTypes.number,
+      created: PropTypes.string.isRequired,
+    }),
+  ),
+};

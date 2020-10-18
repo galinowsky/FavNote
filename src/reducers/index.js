@@ -1,4 +1,13 @@
-import { ADD_ITEM, REMOVE_ITEM, AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE,FETCH_REQUEST,FETCH_SUCCESS,FETCH_FAILURE } from 'actions';
+import {
+  ADD_ITEM,
+  REMOVE_ITEM,
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
+  AUTH_FAILURE,
+  FETCH_REQUEST,
+  FETCH_SUCCESS,
+  FETCH_FAILURE,
+} from 'actions';
 
 const initialState = {
   // notes: [
@@ -107,8 +116,8 @@ const rootReducer = (state = initialState, action) => {
     case FETCH_SUCCESS:
       return {
         ...state,
-        [action.payload.itemType] : [...action.payload.data]
-      }
+        [action.payload.itemType]: [...action.payload.data],
+      };
 
     case AUTH_SUCCESS: {
       //  console.log(action)

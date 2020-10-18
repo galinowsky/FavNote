@@ -2,45 +2,42 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Card from 'components/molecules/Card/Card';
+import { fetchItems } from 'actions';
 import GridTemplate from '../templates/GridTemplate';
-import {fetchItems} from 'actions';
-import axios from 'axios';
 
 class Articles extends Component {
-  componentDidMount(){
-     this.props.fetchItems('articles')
-
+  componentDidMount() {
+    this.props.fetchItems('articles');
   }
 
   render() {
-    const { articles,cardType,Title, content, articleUrl, created } = this.props
+    const { articles } = this.props;
     return (
-
       <GridTemplate pageType="articles">
-      {/* {console.log(fetchTwitters)} */}
-        {articles && articles.map(elem => (
-          <Card
-            cardType="articles"
-            title={elem.title}
-            content={elem.content}
-            articleUrl={elem.articleUrl}
-            created={elem.cretaed}
-            key={elem.id}
-          />
-        ))}
+        {/* {console.log(fetchTwitters)} */}
+        {articles &&
+          articles.map(elem => (
+            <Card
+              cardType={elem.cardType}
+              title={elem.title}
+              content={elem.content}
+              articleUrl={elem.articleUrl}
+              created={elem.cretaed}
+              key={elem.id}
+            />
+          ))}
       </GridTemplate>
     );
   }
 }
 
-const mapState= ({ articles }) => ({ articles });
+const mapState = ({ articles }) => ({ articles });
 
-const mapDisptach =  {
-  fetchItems
-}
+const mapDisptach = {
+  fetchItems,
+};
 
-
-export default connect(mapState,mapDisptach)(Articles);
+export default connect(mapState, mapDisptach)(Articles);
 
 Articles.propTypes = {
   articles: PropTypes.arrayOf(
