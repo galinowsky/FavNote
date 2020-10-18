@@ -6,7 +6,7 @@ import GridTemplate from 'templates/GridTemplate';
 
 const Notes = ({ notes }) => (
   <GridTemplate>
-    {notes.map(elem => (
+    {notes && notes.map(elem => (
       <Card
         cardType="notes"
         title={elem.title}

@@ -6,7 +6,7 @@ import GridTemplate from '../templates/GridTemplate';
 
 const Twitters = ({twitters}) => (
   <GridTemplate pageType="twitters">
-  {twitters.map(elem => (
+  {twitters && twitters.map(elem => (
   <Card
     id = {elem.id}
     cardType="twitters"
