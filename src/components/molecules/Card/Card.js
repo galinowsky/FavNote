@@ -117,11 +117,11 @@ class Card extends Component {
     );
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return{
-
-  removeItem: (itemType, id) => dispatch(removeItemAction(itemType, id)),
-}};
+const mapDispatchToProps = dispatch => {
+  return {
+    removeItem: (itemType, id) => dispatch(removeItemAction(itemType, id)),
+  };
+};
 
 export default connect(null, mapDispatchToProps)(withContext(Card));
 

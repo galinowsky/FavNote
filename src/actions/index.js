@@ -39,7 +39,7 @@ export const addItem = (itemType, itemContent) => {
 
 export const authenticate = (username, password) => dispatch => {
   dispatch({ type: AUTH_REQUEST });
-  console.log({username, password})
+  console.log({ username, password });
   return axios
     .post('http://localhost:9000/api/user/login', { username, password })
     .then(payload => {
