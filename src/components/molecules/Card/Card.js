@@ -8,6 +8,7 @@ import Button from 'components/atoms/Button/Button';
 import LinkIcon from 'assets/icons/link.svg';
 import { connect } from 'react-redux';
 import { removeItem as removeItemAction } from 'actions';
+import { deleteItem } from 'actions';
 import withContext from 'hoc/withContext';
 
 const StyledWrapper = styled.div`
@@ -39,11 +40,7 @@ const InnerWrapper = styled.div`
       align-items: start;
     `}
 `;
-const DateInfo = styled(Paragraph)`
-  margin: 0 0 10px;
-  font-weight: ${({ theme }) => theme.bold};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-`;
+
 const StyledHeading = styled(Heading)`
   margin: 5px 0 0;
   padding-right: 25px;
@@ -89,13 +86,13 @@ class Card extends Component {
       content,
       twitterName,
       id,
-      removeItem,
+      deleteItem,
     } = this.props;
     const { redirect } = this.state;
     if (redirect) {
       return <Redirect to={`${pageContext}/${id}`} />;
     }
-    // {console.log(this.state)}
+    //  {console.log(this.props)}
     return (
       <StyledWrapper onClick={this.handleCardClick}>
         <InnerWrapper activeColor={pageContext}>
@@ -109,7 +106,7 @@ class Card extends Component {
         </InnerWrapper>
         <InnerWrapper flex>
           <Paragraph>{content}</Paragraph>
-          <Button secondary onClick={() => removeItem(pageContext, id)}>
+          <Button secondary onClick={() => deleteItem(pageContext, id)}>
             remove
           </Button>
         </InnerWrapper>
@@ -117,10 +114,8 @@ class Card extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => {
-  return {
-    removeItem: (itemType, id) => dispatch(removeItemAction(itemType, id)),
-  };
+const mapDispatchToProps = {
+  deleteItem
 };
 
 export default connect(null, mapDispatchToProps)(withContext(Card));

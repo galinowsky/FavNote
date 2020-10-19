@@ -7,6 +7,7 @@ import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
 import withContext from 'hoc/withContext';
+import { connect } from 'react-redux';
 
 const StyledWrapper = styled.div`
   padding: 25px 150px 25px 125px;
@@ -74,6 +75,11 @@ const DetailsTemplate = ({ pageContext, title, created, content, articleUrl, twi
   </UserPageTemplate>
 );
 
+
+
+export default withContext(DetailsTemplate);
+
+
 DetailsTemplate.propTypes = {
   pageContext: PropTypes.string.isRequired,
   title: PropTypes.string,
@@ -90,5 +96,3 @@ DetailsTemplate.defaultProps = {
   articleUrl: '',
   twitterName: '',
 };
-
-export default withContext(DetailsTemplate);

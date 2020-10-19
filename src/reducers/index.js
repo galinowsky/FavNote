@@ -1,6 +1,8 @@
 import {
   ADD_ITEM,
-  REMOVE_ITEM,
+  REMOVE_ITEM_REQUEST,
+  REMOVE_ITEM_SUCCES,
+  REMOVE_ITEM_FAILURE,
   AUTH_REQUEST,
   AUTH_SUCCESS,
   AUTH_FAILURE,
@@ -30,11 +32,11 @@ const rootReducer = (state = initialState, action) => {
       };
       // console.log(action)
     }
-    case REMOVE_ITEM:
+    case REMOVE_ITEM_SUCCES:
       return {
         ...state,
         [action.payload.itemType]: [
-          ...state[action.payload.itemType].filter(item => item.id !== action.payload.id),
+          ...state[action.payload.itemType].filter(item => item._id !== action.payload.id),
         ],
       };
 

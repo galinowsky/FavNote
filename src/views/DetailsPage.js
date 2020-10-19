@@ -10,39 +10,34 @@ import axios from 'axios';
 class DetailsPage extends Component {
   state = {
     activeItem: {
-      title:'',
-      content:'',
-      articleUrl:'',
-      twitterName:'',
-
+      title: '',
+      content: '',
+      articleUrl: '',
+      twitterName: '',
     },
   };
 
   componentDidMount() {
-
-
-if(this.props.activeItem) {
-  const [activeItem] = this.props.activeItem;
-  this.setState({
-    activeItem:  activeItem,
-  })
-}else {
-  const {id} = this.props.match.params;
-  console.log('jajczia')
-  axios.get(`http://localhost:9000/api/note/${id}`)
-  .then(({data}) => this.setState({
-    activeItem: data
-  }))
-  .catch(({err}) => console.log(err))
-}
-
-
-
+    if (this.props.activeItem) {
+      const [activeItem] = this.props.activeItem;
+      this.setState({ activeItem });
+    } else {
+      const { id } = this.props.match.params;
+      console.log('jajczia');
+      axios
+        .get(`http://localhost:9000/api/note/${id}`)
+        .then(({ data }) =>
+          this.setState({
+            activeItem: data,
+          }),
+        )
+        .catch(({ err }) => console.log(err));
+    }
   }
 
   render() {
-    const {pageContext} = this.props.pageContext;
-    const {activeItem} = this.state;
+    const { pageContext } = this.props.pageContext;
+    const { activeItem } = this.state;
 
     return (
       <DetailsTemplate
@@ -58,13 +53,12 @@ if(this.props.activeItem) {
 }
 
 const mapState = (state, ownProps) => {
-  if(state[ownProps.pageContext]){
+  if (state[ownProps.pageContext]) {
     return {
       activeItem: state[ownProps.pageContext].filter(item => item._id === ownProps.match.params.id),
     };
   }
-  return {}
-
+  return {};
 };
 
 DetailsPage.propTypes = {
