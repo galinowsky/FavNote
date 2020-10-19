@@ -66,7 +66,7 @@ export const fetchItems = itemType => (dispatch, getState) => {
       },
     })
     .then(({ data }) => {
-      console.log(data);
+      // console.log(data);
       dispatch({
         type: FETCH_SUCCESS,
         payload: {

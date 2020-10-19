@@ -21,13 +21,13 @@ return(
     {twitters &&
       twitters.map(elem => (
         <Card
-          id={elem.id}
+          id={elem._id}
           cardType="twitters"
           title={elem.title}
           content={elem.content}
           twitterName={elem.twitterName}
           created={elem.cretaed}
-          key={elem.id}
+          key={elem._id}
         />
       ))}
   </GridTemplate>

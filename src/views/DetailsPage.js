@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import DetailsTemplate from 'templates/DetailsTemplate';
 import { routes } from 'Routes';
+import withContext from 'hoc/withContext';
+
 
 class DetailsPage extends Component {
   state = {
@@ -9,6 +12,7 @@ class DetailsPage extends Component {
   };
 
   componentDidMount() {
+    // console.log(this.props)
     const { match } = this.props;
 
     switch (match.path) {
@@ -24,6 +28,10 @@ class DetailsPage extends Component {
       default:
         console.log('Something went wrong with matching paths');
     }
+
+
+
+
   }
 
   render() {
@@ -36,24 +44,32 @@ class DetailsPage extends Component {
       articleUrl: 'https://youtube.com/helloroman',
       created: '1 day',
     };
-
+ console.log(this.props)
     const { pageType } = this.state;
-
+    const [Item] = this.props.activeItem;
     return (
       <DetailsTemplate
         pageType={pageType}
-        title={dummyArticle.title}
-        created={dummyArticle.created}
-        content={dummyArticle.content}
-        articleUrl={dummyArticle.articleUrl}
-        twitterName={dummyArticle.twitterName}
+        title={Item.title}
+        created={Item.created}
+        content={Item.content}
+        articleUrl={Item.articleUrl}
+        twitterName={Item.twitterName}
       />
     );
   }
 }
 
+const mapState = (state, ownProps) => {
+  console.log({state, ownProps})
+  return {
+
+ activeItem: state[ownProps.pageContext]
+ .filter(item => item._id === ownProps.match.params.id)
+}}
+
 DetailsPage.propTypes = {
   match: PropTypes.string.isRequired,
 };
 
-export default DetailsPage;
+export default withContext(connect(mapState)(DetailsPage));

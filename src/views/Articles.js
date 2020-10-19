@@ -23,7 +23,8 @@ class Articles extends Component {
               content={elem.content}
               articleUrl={elem.articleUrl}
               created={elem.cretaed}
-              key={elem.id}
+              key={elem._id}
+              id={elem._id}
             />
           ))}
       </GridTemplate>
