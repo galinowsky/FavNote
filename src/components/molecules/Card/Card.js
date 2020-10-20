@@ -7,7 +7,6 @@ import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import LinkIcon from 'assets/icons/link.svg';
 import { connect } from 'react-redux';
-import { removeItem as removeItemAction } from 'actions';
 import { deleteItem } from 'actions';
 import withContext from 'hoc/withContext';
 
@@ -27,7 +26,7 @@ const InnerWrapper = styled.div`
   width: 100%;
   padding: 10px 30px;
   position: relative;
-  height: 75px;
+  /* height: 75px; */
   :first-of-type {
     z-index: 2000;
   }
@@ -42,7 +41,7 @@ const InnerWrapper = styled.div`
 `;
 
 const StyledHeading = styled(Heading)`
-  margin: 5px 0 0;
+  margin: 10px 0 0;
   padding-right: 25px;
 `;
 const StyledAvatar = styled.img`
@@ -69,13 +68,34 @@ const StyledLinkButton = styled.a`
   right: 15px;
   top: 15px;
 `;
+const StyledRemoveButton = styled(Button)`
+  position:absolute;
+  bottom:10px;
+  left:15px;
+`
+const StyledDetailsButton = styled(Button)`
+  position:absolute;
+  bottom:10px;
+  right:15px;
+`
 
 class Card extends Component {
   state = {
     redirect: false,
   };
 
-  handleCardClick = () => this.setState({ redirect: true });
+  handleCardClick = () => {
+    this.setState({ redirect: true });
+  };
+
+  handleDeleteCardClick = e => {
+    console.log(e)
+    e.preventDefault();
+    console.log(this.props.id)
+    this.props.deleteItem(this.props.pageContext,this.props.id)
+  };
+
+
 
   render() {
     const {
@@ -89,12 +109,13 @@ class Card extends Component {
       deleteItem,
     } = this.props;
     const { redirect } = this.state;
+
     if (redirect) {
       return <Redirect to={`${pageContext}/${id}`} />;
     }
     //  {console.log(this.props)}
     return (
-      <StyledWrapper onClick={this.handleCardClick}>
+      <StyledWrapper>
         <InnerWrapper activeColor={pageContext}>
           <StyledHeading>{title}</StyledHeading>
 
@@ -106,16 +127,17 @@ class Card extends Component {
         </InnerWrapper>
         <InnerWrapper flex>
           <Paragraph>{content}</Paragraph>
-          <Button secondary onClick={() => deleteItem(pageContext, id)}>
+          <StyledRemoveButton secondary onClick={this.handleDeleteCardClick}>
             remove
-          </Button>
+          </StyledRemoveButton>
+          <StyledDetailsButton secondary onClick={this.handleCardClick}>Details</StyledDetailsButton>
         </InnerWrapper>
       </StyledWrapper>
     );
   }
 }
 const mapDispatchToProps = {
-  deleteItem
+  deleteItem,
 };
 
 export default connect(null, mapDispatchToProps)(withContext(Card));
@@ -123,7 +145,6 @@ export default connect(null, mapDispatchToProps)(withContext(Card));
 Card.propTypes = {
   pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
   title: PropTypes.string.isRequired,
-
   twitterName: PropTypes.string,
   articleUrl: PropTypes.string,
   content: PropTypes.string.isRequired,

@@ -13,7 +13,7 @@ componentDidMount(){
 
 render(){
   const {notes} = this.props
-  // console.log(this.props)
+   console.log(this.props)
   return(
     <GridTemplate>
     {notes &&

@@ -3,7 +3,10 @@ import axios from 'axios';
 export const REMOVE_ITEM_REQUEST = 'REMOVE_ITEM_REQUEST';
 export const REMOVE_ITEM_SUCCES = 'REMOVE_ITEM_SUCCES';
 export const REMOVE_ITEM_FAILURE = 'REMOVE_ITEM_FAILURE';
-export const ADD_ITEM = 'ADD_ITEM';
+
+export const ADD_ITEM_REQUEST = 'ADD_ITEM_REQUEST';
+export const ADD_ITEM_SUCCES = 'ADD_ITEM_SUCCES';
+export const ADD_ITEM_FAILURE = 'ADD_ITEM_FAILURE';
 
 export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -13,23 +16,23 @@ export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_FAILURE = 'FETCH_FAILURE';
 
-export const addItem = (itemType, itemContent) => {
-  const getId = () =>
-    `_${Math.random()
-      .toString(36)
-      .substr(2, 9)}`;
-  return {
-    type: 'ADD_ITEM',
-    payload: {
-      itemType,
+// export const addItem = (itemType, itemContent) => {
+//   const getId = () =>
+//     `_${Math.random()
+//       .toString(36)
+//       .substr(2, 9)}`;
+//   return {
+//     type: 'ADD_ITEM',
+//     payload: {
+//       itemType,
 
-      item: {
-        id: getId(),
-        ...itemContent,
-      },
-    },
-  };
-};
+//       item: {
+//         id: getId(),
+//         ...itemContent,
+//       },
+//     },
+//   };
+// };
 
 export const authenticate = (username, password) => dispatch => {
   dispatch({ type: AUTH_REQUEST });
@@ -94,10 +97,31 @@ console.log({itemType,id})
   });
 }
 
-export const removeItem = (itemType, id) => ({
-  type: REMOVE_ITEM_SUCCES,
-  payload: {
-    itemType,
-    id,
-  },
-});
+export const addItem = (itemType,values) => (dispatch,getState) => {
+  dispatch({ type: ADD_ITEM_REQUEST})
+  // console.log(values)
+  // console.log(getState())
+  const userID = getState().userID
+
+
+  return axios
+  .post(`http://localhost:9000/api/note/`,{
+    ...values,
+    type: itemType,
+    userID
+    })
+  .then(({data}) => {
+     console.log(data)
+     console.log({itemType , data})
+    dispatch({
+      type: ADD_ITEM_SUCCES,
+      payload: {itemType , data},
+    });
+  })
+  .catch(err => {
+    console.log(err);
+    dispatch({ type: AUTH_FAILURE });
+  });
+
+
+}

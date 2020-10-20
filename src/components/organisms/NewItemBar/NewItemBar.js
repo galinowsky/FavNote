@@ -8,7 +8,7 @@ import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import withContext from 'hoc/withContext';
 // import plusIcon from 'assets/icons/plus.svg';
 import { connect } from 'react-redux';
-import { addItem as addItemAction } from 'actions';
+import { addItem } from 'actions';
 import { Formik, Form } from 'formik';
 
 const StyledWrapper = styled.div`
@@ -40,7 +40,6 @@ const StyledButton = styled(Button)`
   /* margin-top:15px; */
 `;
 
-
 const StyledDescriptionInput = styled(Input)`
   height: 30vh;
   width: 300px;
@@ -55,12 +54,12 @@ const newItemBar = ({ pageContext, isVisible, addItem, toggleFunction }) => {
       <StyledParagraph>A note requires title and description</StyledParagraph>
       <Formik
         initialValues={{ title: '', content: '', articleUrl: '', twitterName: '', created: '' }}
-        onSubmit={(values) => {
+        onSubmit={values => {
           addItem(pageContext, values);
           toggleFunction();
         }}
       >
-        {({ values, handleChange, handleBlur}) => (
+        {({ values, handleChange, handleBlur }) => (
           <Form>
             <Input
               type="text"
@@ -109,10 +108,8 @@ const newItemBar = ({ pageContext, isVisible, addItem, toggleFunction }) => {
   );
 };
 
-const mapDispatch = dispatch => {
-  return {
-    addItem: (itemType, itemContent) => dispatch(addItemAction(itemType, itemContent)),
-  };
-};
+const mapDispatch = {
+  addItem
+}
 
 export default connect(null, mapDispatch)(withContext(newItemBar));

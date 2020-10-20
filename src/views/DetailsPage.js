@@ -23,7 +23,7 @@ class DetailsPage extends Component {
       this.setState({ activeItem });
     } else {
       const { id } = this.props.match.params;
-      console.log('jajczia');
+
       axios
         .get(`http://localhost:9000/api/note/${id}`)
         .then(({ data }) =>

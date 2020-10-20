@@ -1,5 +1,7 @@
 import {
-  ADD_ITEM,
+  ADD_ITEM_REQUEST,
+  ADD_ITEM_SUCCES,
+  ADD_ITEM_FAILURE,
   REMOVE_ITEM_REQUEST,
   REMOVE_ITEM_SUCCES,
   REMOVE_ITEM_FAILURE,
@@ -40,10 +42,10 @@ const rootReducer = (state = initialState, action) => {
         ],
       };
 
-    case ADD_ITEM:
+    case ADD_ITEM_SUCCES:
       return {
         ...state,
-        [action.payload.itemType]: [...state[action.payload.itemType], action.payload.item],
+        [action.payload.itemType]: [...state[action.payload.itemType], action.payload.data],
       };
 
     default:
