@@ -52,8 +52,6 @@ const StyledAvatar = styled.img`
   right: 15px;
   top: 40px;
   border-radius: 50px;
-  /* z-index:1000; */
-  /* background-image: url('https://unavatar.now.sh/twitter/edent'); */
 `;
 
 const StyledLinkButton = styled.a`
@@ -69,15 +67,15 @@ const StyledLinkButton = styled.a`
   top: 15px;
 `;
 const StyledRemoveButton = styled(Button)`
-  position:absolute;
-  bottom:10px;
-  left:15px;
-`
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+`;
 const StyledDetailsButton = styled(Button)`
-  position:absolute;
-  bottom:10px;
-  right:15px;
-`
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+`;
 
 class Card extends Component {
   state = {
@@ -88,14 +86,10 @@ class Card extends Component {
     this.setState({ redirect: true });
   };
 
-  handleDeleteCardClick = e => {
-    console.log(e)
-    e.preventDefault();
-    console.log(this.props.id)
-    this.props.deleteItem(this.props.pageContext,this.props.id)
+  handleDeleteCardClick = () => {
+    const { deleteItem, pageContext, id } = this.props;
+    deleteItem(pageContext, id);
   };
-
-
 
   render() {
     const {
@@ -106,20 +100,16 @@ class Card extends Component {
       content,
       twitterName,
       id,
-      deleteItem,
     } = this.props;
     const { redirect } = this.state;
 
     if (redirect) {
       return <Redirect to={`${pageContext}/${id}`} />;
     }
-    //  {console.log(this.props)}
     return (
       <StyledWrapper>
         <InnerWrapper activeColor={pageContext}>
           <StyledHeading>{title}</StyledHeading>
-
-          {/* <StyledAvatar src={`http://twivatar.glitch.me/${twitterName}`} /> */}
           {pageContext === 'twitters' && (
             <StyledAvatar src={`http://twivatar.glitch.me/${twitterName}`} />
           )}
@@ -130,7 +120,9 @@ class Card extends Component {
           <StyledRemoveButton secondary onClick={this.handleDeleteCardClick}>
             remove
           </StyledRemoveButton>
-          <StyledDetailsButton secondary onClick={this.handleCardClick}>Details</StyledDetailsButton>
+          <StyledDetailsButton secondary onClick={this.handleCardClick}>
+            Details
+          </StyledDetailsButton>
         </InnerWrapper>
       </StyledWrapper>
     );
@@ -149,7 +141,7 @@ Card.propTypes = {
   articleUrl: PropTypes.string,
   content: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  removeItem: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
 };
 
 Card.defaultProps = {

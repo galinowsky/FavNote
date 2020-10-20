@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Heading from 'components/atoms/Heading/Heading';
 import Input from 'components/atoms/Input/Input';
-import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
 import Button from 'components/atoms/Button/Button';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import withContext from 'hoc/withContext';
@@ -109,7 +109,15 @@ const newItemBar = ({ pageContext, isVisible, addItem, toggleFunction }) => {
 };
 
 const mapDispatch = {
-  addItem
-}
+  addItem,
+};
 
 export default connect(null, mapDispatch)(withContext(newItemBar));
+
+newItemBar.propTypes = {
+  pageContext: PropTypes.string.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+  addItem: PropTypes.func.isRequired,
+  toggleFunction: PropTypes.func.isRequired,
+  // created: PropTypes.string.isRequired,
+};

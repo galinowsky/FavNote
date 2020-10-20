@@ -1,24 +1,23 @@
 import {
-  ADD_ITEM_REQUEST,
+  // ADD_ITEM_REQUEST,
   ADD_ITEM_SUCCES,
-  ADD_ITEM_FAILURE,
-  REMOVE_ITEM_REQUEST,
+  // ADD_ITEM_FAILURE,
+  // REMOVE_ITEM_REQUEST,
   REMOVE_ITEM_SUCCES,
-  REMOVE_ITEM_FAILURE,
-  AUTH_REQUEST,
+  // REMOVE_ITEM_FAILURE,
+  // AUTH_REQUEST,
   AUTH_SUCCESS,
-  AUTH_FAILURE,
-  FETCH_REQUEST,
+  // AUTH_FAILURE,
+  // FETCH_REQUEST,
   FETCH_SUCCESS,
-  FETCH_FAILURE,
+  // FETCH_FAILURE,
 } from 'actions';
 
 const initialState = {
-//  userID: "5f875cd264ee6438a0613f92"
+  //  userID: "5f875cd264ee6438a0613f92"
 };
 
 const rootReducer = (state = initialState, action) => {
-  // eslint-disable-next-line default-case
   switch (action.type) {
     case FETCH_SUCCESS:
       return {
@@ -27,12 +26,10 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case AUTH_SUCCESS: {
-      //  console.log(action)
       return {
         ...state,
         userID: action.payload.data._id,
       };
-      // console.log(action)
     }
     case REMOVE_ITEM_SUCCES:
       return {
